@@ -32,6 +32,7 @@ func HandleProxy(path string, proxyOpthion ProxyOptions) gin.HandlerFunc {
 					ctx.Writer.Header().Add(key, value[0])
 				}
 			}
+			ctx.Status(resp.StatusCode)
 			ctx.Writer.Write(body)
 
 		} else {
