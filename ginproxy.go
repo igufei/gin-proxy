@@ -12,12 +12,12 @@ type ProxyOptions struct {
 	PathRewrite string
 }
 
-func HandleProxy(path string, proxyOpthion ProxyOptions) gin.HandlerFunc {
+func HandleProxy(path string, proxyOption ProxyOptions) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		if strings.Index(ctx.Request.RequestURI, path) == 0 {
 			client := &http.Client{}
-			requestUrl := strings.Replace(ctx.Request.RequestURI, proxyOpthion.PathRewrite, "", -1)
-			url := proxyOpthion.Target+requestUrl
+			requestUrl := strings.Replace(ctx.Request.RequestURI, proxyOption.PathRewrite, "", -1)
+			url := proxyOption.Target + requestUrl
 			req, err := http.NewRequest(ctx.Request.Method, url, ctx.Request.Body)
 			if err != nil {
 				println(err)
